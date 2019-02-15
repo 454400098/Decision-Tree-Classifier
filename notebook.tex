@@ -1,0 +1,826 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{ML\_HW\_2}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}70}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{random} \PY{k}{as} \PY{n+nn}{rd}
+         \PY{k+kn}{import} \PY{n+nn}{math}
+         \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         \PY{k+kn}{from} \PY{n+nn}{numpy} \PY{k}{import} \PY{n}{log2} \PY{k}{as} \PY{n}{log}
+         \PY{k+kn}{import} \PY{n+nn}{pprint}
+         \PY{n}{eps} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{finfo}\PY{p}{(}\PY{n+nb}{float}\PY{p}{)}\PY{o}{.}\PY{n}{eps}
+\end{Verbatim}
+
+
+    \section{\texorpdfstring{class \(Dtrees\) is used to Create the dataset
+for decision
+tree}{class Dtrees is used to Create the dataset for decision tree}}\label{class-dtrees-is-used-to-create-the-dataset-for-decision-tree}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}71}]:} \PY{k}{class} \PY{n+nc}{Dtrees}\PY{p}{:}
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,}\PY{n}{k}\PY{p}{,}\PY{n}{m}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{k} \PY{o}{=} \PY{n}{k}    \PY{c+c1}{\PYZsh{}number of features}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{m} \PY{o}{=} \PY{n}{m}    \PY{c+c1}{\PYZsh{}number of data points}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{arrofarrX} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{arrY} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                 
+                 \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{m}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{new} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                     \PY{n}{tmpX} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{generateX}\PY{p}{(}\PY{p}{)}
+                     \PY{n}{tmpW} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{generateW}\PY{p}{(}\PY{p}{)}
+                     \PY{n}{tmpY} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{computeY}\PY{p}{(}\PY{n}{tmpX}\PY{p}{,}\PY{n}{tmpW}\PY{p}{)}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{arrofarrX}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{tmpX}\PY{p}{)}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{arrY}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{tmpY}\PY{p}{)}
+             
+             \PY{k}{def} \PY{n+nf}{ran}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{if} \PY{n}{rd}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mf}{0.5}\PY{p}{:}
+                     \PY{k}{return} \PY{l+m+mi}{1}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{k}{return} \PY{l+m+mi}{0}
+                 
+             \PY{k}{def} \PY{n+nf}{ran2}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{if} \PY{n}{rd}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mf}{0.25}\PY{p}{:}
+                     \PY{k}{return} \PY{l+m+mi}{1}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{k}{return} \PY{l+m+mi}{0}
+                 
+             \PY{k}{def} \PY{n+nf}{generateX}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{new} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                 \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{ran}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{:}
+                     \PY{n}{new}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{n}{new}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+                 
+                 \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range} \PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{k}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{ran2}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{:}
+                         \PY{n}{new}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{new}\PY{p}{[}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                     \PY{k}{else}\PY{p}{:}
+                         \PY{n}{new}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{new}\PY{p}{[}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                 \PY{k}{return} \PY{n}{new}
+             
+             \PY{k}{def} \PY{n+nf}{generateW}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{new\PYZus{}w} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                 \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range} \PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{k}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{de} \PY{o}{=} \PY{l+m+mi}{0}
+                     \PY{k}{for} \PY{n}{y} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{x}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                         \PY{n}{de} \PY{o}{=} \PY{n}{de}\PY{o}{+} \PY{n}{math}\PY{o}{.}\PY{n}{pow}\PY{p}{(}\PY{l+m+mf}{0.9}\PY{p}{,}\PY{n}{y}\PY{p}{)}
+                     \PY{n}{res} \PY{o}{=} \PY{n}{math}\PY{o}{.}\PY{n}{pow}\PY{p}{(}\PY{l+m+mf}{0.9}\PY{p}{,}\PY{n}{x}\PY{p}{)} \PY{o}{/} \PY{n}{de}
+                     \PY{n}{new\PYZus{}w}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{res}\PY{p}{)}
+                 \PY{k}{return} \PY{n}{new\PYZus{}w}
+             
+             \PY{k}{def} \PY{n+nf}{computeY}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,}\PY{n}{arrX}\PY{p}{,}\PY{n}{arrW}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{res} \PY{o}{=} \PY{l+m+mi}{0}
+                 \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range} \PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{k}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{res}\PY{o}{+}\PY{o}{=} \PY{n}{arrX}\PY{p}{[}\PY{n}{x}\PY{p}{]}\PY{o}{*}\PY{n}{arrW}\PY{p}{[}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{c+c1}{\PYZsh{}         print(\PYZdq{}current result is \PYZpc{}d\PYZdq{},res)}
+                 \PY{k}{if} \PY{n}{res} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{l+m+mf}{0.5}\PY{p}{:}
+                     \PY{k}{return} \PY{n}{arrX}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{k}{return} \PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{n}{arrX}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                 
+\end{Verbatim}
+
+
+    \section{Function used to Transfer data into data
+frame}\label{function-used-to-transfer-data-into-data-frame}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}338}]:} \PY{k}{def} \PY{n+nf}{insertDS}\PY{p}{(}\PY{n}{ds}\PY{p}{,}\PY{n}{arr}\PY{p}{)}\PY{p}{:}
+              \PY{n}{tmp} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{arr}\PY{p}{)}
+              \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{tmp}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{ds}\PY{p}{[}\PY{n}{x}\PY{p}{]} \PY{o}{=} \PY{n}{arr}\PY{p}{[}\PY{n}{x}\PY{p}{]}
+              \PY{k}{return} \PY{n}{ds}
+\end{Verbatim}
+
+
+    \section{START BUILDING DECISION
+TREE}\label{start-building-decision-tree}
+
+    \section{\texorpdfstring{Compute
+\(H(Y)\)}{Compute H(Y)}}\label{compute-hy}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}599}]:} \PY{n}{d} \PY{o}{=} \PY{n}{Dtrees}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{5000}\PY{p}{)}
+          \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{d}\PY{o}{.}\PY{n}{arrofarrX}\PY{p}{)}
+          \PY{n}{L} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{d}\PY{o}{.}\PY{n}{arrofarrX}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+          \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{d}\PY{o}{.}\PY{n}{arrY}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}585}]:} \PY{k}{def} \PY{n+nf}{find\PYZus{}entropy}\PY{p}{(}\PY{n}{df}\PY{p}{)}\PY{p}{:}
+              \PY{n}{ClFI} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}   \PY{c+c1}{\PYZsh{} to get the attribute name of classifcation column}
+              \PY{n}{entropy} \PY{o}{=} \PY{l+m+mi}{0}
+              \PY{n}{values} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{ClFI}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}
+              \PY{k}{for} \PY{n}{value} \PY{o+ow}{in} \PY{n}{values}\PY{p}{:}
+                  \PY{n}{fraction} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{ClFI}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{n}{value}\PY{p}{]}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{ClFI}\PY{p}{]}\PY{p}{)}
+                  \PY{n}{entropy} \PY{o}{+}\PY{o}{=} \PY{o}{\PYZhy{}}\PY{n}{fraction}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{log2}\PY{p}{(}\PY{n}{fraction}\PY{p}{)}
+              \PY{k}{return} \PY{n}{entropy}
+\end{Verbatim}
+
+
+    \section{\texorpdfstring{Compute
+\(H(Y|X) = \sum_{x}P(X = x)[-\sum_{y}P(Y=y|X=x)\log P(Y=y|X=x)]\)}{Compute H(Y\textbar{}X) = \textbackslash{}sum\_\{x\}P(X = x){[}-\textbackslash{}sum\_\{y\}P(Y=y\textbar{}X=x)\textbackslash{}log P(Y=y\textbar{}X=x){]}}}\label{compute-hyx-sum_xpx-x-sum_ypyyxxlog-pyyxx}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}586}]:} \PY{k}{def} \PY{n+nf}{find\PYZus{}entropy\PYZus{}attribute}\PY{p}{(}\PY{n}{df}\PY{p}{,}\PY{n}{attribute}\PY{p}{)}\PY{p}{:}
+              \PY{n}{ClFI} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}      
+              \PY{n}{target\PYZus{}variables} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{ClFI}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}  
+              \PY{n}{variables} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{attribute}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}    
+              \PY{n}{entropy2} \PY{o}{=} \PY{l+m+mi}{0}
+              \PY{k}{for} \PY{n}{variable} \PY{o+ow}{in} \PY{n}{variables}\PY{p}{:}
+                  \PY{n}{entropy} \PY{o}{=} \PY{l+m+mi}{0}
+                  \PY{k}{for} \PY{n}{target\PYZus{}variable} \PY{o+ow}{in} \PY{n}{target\PYZus{}variables}\PY{p}{:}
+                      \PY{n}{num} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{attribute}\PY{p}{]}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{n}{attribute}\PY{p}{]}\PY{o}{==}\PY{n}{variable}\PY{p}{]}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{n}{ClFI}\PY{p}{]} \PY{o}{==}\PY{n}{target\PYZus{}variable}\PY{p}{]}\PY{p}{)}
+                      \PY{n}{den} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{attribute}\PY{p}{]}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{n}{attribute}\PY{p}{]}\PY{o}{==}\PY{n}{variable}\PY{p}{]}\PY{p}{)}
+                      \PY{n}{fraction} \PY{o}{=} \PY{n}{num}\PY{o}{/}\PY{p}{(}\PY{n}{den}\PY{o}{+}\PY{n}{eps}\PY{p}{)}
+                      \PY{n}{entropy} \PY{o}{+}\PY{o}{=} \PY{o}{\PYZhy{}}\PY{n}{fraction}\PY{o}{*}\PY{n}{log}\PY{p}{(}\PY{n}{fraction}\PY{o}{+}\PY{n}{eps}\PY{p}{)}
+                  \PY{n}{fraction2} \PY{o}{=} \PY{n}{den}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{df}\PY{p}{)}
+                  \PY{n}{entropy2} \PY{o}{+}\PY{o}{=} \PY{o}{\PYZhy{}}\PY{n}{fraction2}\PY{o}{*}\PY{n}{entropy}
+              \PY{k}{return} \PY{n+nb}{abs}\PY{p}{(}\PY{n}{entropy2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \section{Find the the attribute that could lead to the biggest
+entropy}\label{find-the-the-attribute-that-could-lead-to-the-biggest-entropy}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}587}]:} \PY{k}{def} \PY{n+nf}{find\PYZus{}winner}\PY{p}{(}\PY{n}{df}\PY{p}{)}\PY{p}{:}
+              \PY{n}{Entropy\PYZus{}att} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+              \PY{n}{IG} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+              \PY{k}{for} \PY{n}{key} \PY{o+ow}{in} \PY{n}{df}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{:}
+          \PY{c+c1}{\PYZsh{}         Entropy\PYZus{}att.append(find\PYZus{}entropy\PYZus{}attribute(df,key))}
+                  \PY{n}{IG}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{find\PYZus{}entropy}\PY{p}{(}\PY{n}{df}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{find\PYZus{}entropy\PYZus{}attribute}\PY{p}{(}\PY{n}{df}\PY{p}{,}\PY{n}{key}\PY{p}{)}\PY{p}{)}
+              \PY{k}{return} \PY{n}{df}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{IG}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}588}]:} \PY{n}{ans} \PY{o}{=} \PY{n}{find\PYZus{}winner}\PY{p}{(}\PY{n}{arr}\PY{p}{)}
+\end{Verbatim}
+
+
+    \section{get subtable since we find a attribute to cut the
+table}\label{get-subtable-since-we-find-a-attribute-to-cut-the-table}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}589}]:} \PY{k}{def} \PY{n+nf}{get\PYZus{}subtable}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{n}{node}\PY{p}{,}\PY{n}{value}\PY{p}{)}\PY{p}{:}
+              \PY{k}{return} \PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{n}{node}\PY{p}{]} \PY{o}{==} \PY{n}{value}\PY{p}{]}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \section{(DFS IMPLEMENTATION)FINAL STEP: LETS BUILD DECISION
+TREE}\label{dfs-implementationfinal-step-lets-build-decision-tree}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}590}]:} \PY{k}{def} \PY{n+nf}{buildTree}\PY{p}{(}\PY{n}{df}\PY{p}{,}\PY{n}{tree}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}\PY{p}{:} 
+              \PY{n}{Class} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}   
+              
+              \PY{n}{node} \PY{o}{=} \PY{n}{find\PYZus{}winner}\PY{p}{(}\PY{n}{df}\PY{p}{)}   \PY{c+c1}{\PYZsh{}get the attribute that could lead to he biggest entropy}
+              
+              \PY{n}{attValue} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{node}\PY{p}{]}\PY{p}{)}   \PY{c+c1}{\PYZsh{}get the distint attribute in the colomen which lead to the}
+                                               \PY{c+c1}{\PYZsh{}biggest entrophy}
+              
+              \PY{c+c1}{\PYZsh{}init a dictonary structure to store the entire decision tree}
+              \PY{c+c1}{\PYZsh{} which is a dictionary of dictionary}
+              \PY{c+c1}{\PYZsh{} the innder dictionary used to store the current layer of decision tree}
+              \PY{k}{if} \PY{n}{tree} \PY{o+ow}{is} \PY{k+kc}{None}\PY{p}{:}                    
+                  \PY{n}{tree}\PY{o}{=}\PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+                  \PY{n}{tree}\PY{p}{[}\PY{n}{node}\PY{p}{]} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+              
+              \PY{c+c1}{\PYZsh{}find the index of last column}
+              
+              \PY{k}{for} \PY{n}{value} \PY{o+ow}{in} \PY{n}{attValue}\PY{p}{:}
+                  
+                  \PY{n}{subtable} \PY{o}{=} \PY{n}{get\PYZus{}subtable}\PY{p}{(}\PY{n}{df}\PY{p}{,}\PY{n}{node}\PY{p}{,}\PY{n}{value}\PY{p}{)}
+                  \PY{n}{clValue}\PY{p}{,}\PY{n}{counts} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{n}{subtable}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{return\PYZus{}counts}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}    \PY{c+c1}{\PYZsh{}based on the subtable, if counts of unique array}
+                                                                                  \PY{c+c1}{\PYZsh{}equals one, means only one case exist to decide Y}
+                  \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{counts}\PY{p}{)}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{:}
+                      \PY{n}{tree}\PY{p}{[}\PY{n}{node}\PY{p}{]}\PY{p}{[}\PY{n}{value}\PY{p}{]} \PY{o}{=} \PY{n}{clValue}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}                                                    
+                  \PY{k}{else}\PY{p}{:}        
+                      \PY{n}{tree}\PY{p}{[}\PY{n}{node}\PY{p}{]}\PY{p}{[}\PY{n}{value}\PY{p}{]} \PY{o}{=} \PY{n}{buildTree}\PY{p}{(}\PY{n}{subtable}\PY{p}{)} \PY{c+c1}{\PYZsh{}DFS }
+                             
+              \PY{k}{return} \PY{n}{tree}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}593}]:} \PY{k}{def} \PY{n+nf}{predict}\PY{p}{(}\PY{n}{pred\PYZus{}arr}\PY{p}{,}\PY{n}{tree}\PY{p}{)}\PY{p}{:}     \PY{c+c1}{\PYZsh{}predict function is just to traverse the TREE using DFS }
+              \PY{c+c1}{\PYZsh{}DFS}
+              \PY{k}{for} \PY{n}{node} \PY{o+ow}{in} \PY{n}{tree}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{value} \PY{o}{=} \PY{n}{pred\PYZus{}arr}\PY{p}{[}\PY{n}{node}\PY{p}{]}
+                  \PY{n}{tree} \PY{o}{=} \PY{n}{tree}\PY{p}{[}\PY{n}{node}\PY{p}{]}\PY{p}{[}\PY{n}{value}\PY{p}{]}
+                  \PY{n}{ans} \PY{o}{=} \PY{l+m+mi}{0}
+                  \PY{k}{if} \PY{n+nb}{type}\PY{p}{(}\PY{n}{tree}\PY{p}{)} \PY{o+ow}{is} \PY{n+nb}{dict}\PY{p}{:}  \PY{c+c1}{\PYZsh{} yet to reach the node}
+                      \PY{n}{ans} \PY{o}{=} \PY{n}{predict}\PY{p}{(}\PY{n}{pred\PYZus{}arr}\PY{p}{,}\PY{n}{tree}\PY{p}{)}
+                  \PY{k}{else}\PY{p}{:}
+                      \PY{n}{ans} \PY{o}{=} \PY{n}{tree}
+                      \PY{k}{break}\PY{p}{;}
+              \PY{k}{return} \PY{n}{ans}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}594}]:} \PY{k}{def} \PY{n+nf}{err\PYZus{}train}\PY{p}{(}\PY{n}{df}\PY{p}{,}\PY{n}{tree}\PY{p}{)}\PY{p}{:}
+              \PY{n}{count} \PY{o}{=} \PY{l+m+mi}{0}
+              \PY{n}{l} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{df}\PY{p}{)}
+              \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{l}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{inst} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{x}\PY{p}{]}
+                  \PY{n}{ans} \PY{o}{=} \PY{n}{predict}\PY{p}{(}\PY{n}{inst}\PY{p}{,}\PY{n}{tree}\PY{p}{)}
+                  \PY{k}{if} \PY{n}{ans} \PY{o}{==} \PY{n}{inst}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{:}
+                      \PY{n}{count}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+                  \PY{n}{inst} \PY{o}{=} \PY{l+m+mi}{0}
+              \PY{n+nb}{print}\PY{p}{(}\PY{p}{(}\PY{n}{l}\PY{o}{\PYZhy{}}\PY{n}{count}\PY{p}{)}\PY{o}{/}\PY{n}{l}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}600}]:} \PY{n}{err\PYZus{}train}\PY{p}{(}\PY{n}{df}\PY{p}{,}\PY{n}{tree}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.0428
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}663}]:} \PY{k}{def} \PY{n+nf}{err\PYZus{}train2}\PY{p}{(}\PY{n}{df}\PY{p}{,}\PY{n}{tree}\PY{p}{)}\PY{p}{:}
+              \PY{n}{count} \PY{o}{=} \PY{l+m+mi}{0}
+              \PY{n}{l} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{df}\PY{p}{)}
+              \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{l}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{inst} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{x}\PY{p}{]}
+                  \PY{n}{ans} \PY{o}{=} \PY{n}{predict}\PY{p}{(}\PY{n}{inst}\PY{p}{,}\PY{n}{tree}\PY{p}{)}
+                  \PY{k}{if} \PY{n}{ans} \PY{o}{==} \PY{n}{inst}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{:}
+                      \PY{n}{count}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+                  \PY{n}{inst} \PY{o}{=} \PY{l+m+mi}{0}
+              \PY{k}{return} \PY{p}{(}\PY{n}{l}\PY{o}{\PYZhy{}}\PY{n}{count}\PY{p}{)}\PY{o}{/}\PY{n}{l}
+\end{Verbatim}
+
+
+    \section{\texorpdfstring{Question 1: The class \(DTrees\) is used to
+generate the required dataset based on the
+description}{Question 1: The class DTrees is used to generate the required dataset based on the description}}\label{question-1-the-class-dtrees-is-used-to-generate-the-required-dataset-based-on-the-description}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}604}]:} \PY{n}{d} \PY{o}{=} \PY{n}{Dtrees}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}                \PY{c+c1}{\PYZsh{}Dtree(20,10) means number of features is 20, and number of data points is 30}
+          \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{d}\PY{o}{.}\PY{n}{arrofarrX}\PY{p}{)}   \PY{c+c1}{\PYZsh{}convert the generated dataset of x to dataframe}
+          \PY{n}{L} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{d}\PY{o}{.}\PY{n}{arrofarrX}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+          \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{d}\PY{o}{.}\PY{n}{arrY}                 \PY{c+c1}{\PYZsh{}concatenate Y to dataframe }
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}605}]:} \PY{n}{df}   \PY{c+c1}{\PYZsh{}df is the dataframe that contains both \PYZdl{}\PYZbs{}underline\PYZob{}X\PYZcb{}\PYZus{}\PYZob{}m\PYZcb{}\PYZdl{} and classification vection \PYZdl{}\PYZbs{}underline\PYZob{}Y\PYZcb{}\PYZus{}m}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}605}]:}    0  1  2  3  4  5  6  7  8  9 {\ldots}  11  12  13  14  15  16  17  18  19  Y
+          0  1  0  0  1  1  1  0  0  0  0 {\ldots}   0   0   1   0   0   0   0   1   1  1
+          1  1  1  1  0  0  1  1  1  0  1 {\ldots}   1   0   0   0   1   1   0   0   0  1
+          2  0  0  1  1  1  1  0  0  0  0 {\ldots}   0   0   0   0   0   0   0   0   0  0
+          3  0  0  0  1  1  1  1  1  1  1 {\ldots}   0   0   0   0   0   1   1   1   0  0
+          4  0  1  1  0  0  0  0  0  0  0 {\ldots}   1   1   1   0   0   0   0   0   0  0
+          5  1  1  0  0  0  0  0  0  0  0 {\ldots}   0   0   1   1   1   0   0   0   0  1
+          6  1  0  1  1  1  1  1  1  1  1 {\ldots}   0   0   0   0   0   0   0   1   1  1
+          7  0  0  0  1  1  1  0  0  0  1 {\ldots}   1   1   1   0   0   1   0   0   1  0
+          8  0  0  0  1  1  1  0  0  0  0 {\ldots}   1   1   1   1   1   1   0   0   0  0
+          9  0  1  1  0  0  0  0  0  1  1 {\ldots}   1   1   1   0   0   0   0   0   1  0
+          
+          [10 rows x 21 columns]
+\end{Verbatim}
+            
+    \section{\texorpdfstring{Question 2: The function to train the Decision
+Tree is named \(buildTree\), it has several helper functions :
+\{find\_\{entropy\} : used to compute \(H(Y)\)\},
+\{find\_entropy\_attribute: used to compute \(H(Y|X)\)\},
+\{find\_winner: used to find the attribute that could lead to the
+biggest information gain\}, and \{ get\_subtable: used to get subtable
+based on the attribute
+input\}}{Question 2: The function to train the Decision Tree is named buildTree, it has several helper functions : \{find\_\{entropy\} : used to compute H(Y)\}, \{find\_entropy\_attribute: used to compute H(Y\textbar{}X)\}, \{find\_winner: used to find the attribute that could lead to the biggest information gain\}, and \{ get\_subtable: used to get subtable based on the attribute input\}}}\label{question-2-the-function-to-train-the-decision-tree-is-named-buildtree-it-has-several-helper-functions-find_entropy-used-to-compute-hy-find_entropy_attribute-used-to-compute-hyx-find_winner-used-to-find-the-attribute-that-could-lead-to-the-biggest-information-gain-and-get_subtable-used-to-get-subtable-based-on-the-attribute-input}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}606}]:} \PY{n}{tree} \PY{o}{=} \PY{n}{buildTree}\PY{p}{(}\PY{n}{df}\PY{p}{)}    \PY{c+c1}{\PYZsh{} call funcion buildTree to train decisiontree}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}607}]:} \PY{n}{pprint}\PY{o}{.}\PY{n}{pprint}\PY{p}{(}\PY{n}{tree}\PY{p}{)}    \PY{c+c1}{\PYZsh{}this is the final decision tree}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{0: \{0: 0, 1: 1\}\}
+
+    \end{Verbatim}
+
+    \section{\texorpdfstring{In question (2) Below I compute the
+\(err_{train}\hat(f)\) which is
+0}{In question (2) Below I compute the err\_\{train\}\textbackslash{}hat(f) which is 0}}\label{in-question-2-below-i-compute-the-err_trainhatf-which-is-0}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}608}]:} \PY{n}{err\PYZus{}train}\PY{p}{(}\PY{n}{df}\PY{p}{,}\PY{n}{tree}\PY{p}{)}    
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.0
+
+    \end{Verbatim}
+
+    \section{Question(3) First we generate dataset based on number of
+features is 4, and numer of data points is
+30}\label{question3-first-we-generate-dataset-based-on-number-of-features-is-4-and-numer-of-data-points-is-30}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}609}]:} \PY{n}{d} \PY{o}{=} \PY{n}{Dtrees}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{30}\PY{p}{)}                \PY{c+c1}{\PYZsh{}Dtree(20,10) means number of features is 20, and number of data points is 30}
+          \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{d}\PY{o}{.}\PY{n}{arrofarrX}\PY{p}{)}   \PY{c+c1}{\PYZsh{}convert the generated dataset of x to dataframe}
+          \PY{n}{L} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{d}\PY{o}{.}\PY{n}{arrofarrX}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+          \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{d}\PY{o}{.}\PY{n}{arrY} 
+          \PY{n}{df} 
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}609}]:}     0  1  2  3  Y
+          0   1  0  0  0  0
+          1   0  0  0  1  1
+          2   0  0  0  0  1
+          3   0  0  0  1  1
+          4   0  0  0  0  1
+          5   1  1  1  1  1
+          6   1  1  1  0  1
+          7   0  0  1  0  1
+          8   0  0  0  0  1
+          9   0  0  0  0  1
+          10  1  1  0  0  1
+          11  1  1  1  1  1
+          12  0  0  0  1  1
+          13  1  1  1  1  1
+          14  0  1  1  1  0
+          15  0  1  1  1  0
+          16  1  1  1  1  1
+          17  1  1  0  0  1
+          18  0  1  1  1  0
+          19  1  1  1  1  1
+          20  0  1  0  1  0
+          21  0  1  0  0  0
+          22  0  0  0  0  1
+          23  1  0  0  1  0
+          24  0  0  1  1  0
+          25  1  1  0  0  1
+          26  0  0  0  0  1
+          27  0  0  1  0  1
+          28  1  1  1  1  1
+          29  1  1  0  0  1
+\end{Verbatim}
+            
+    \section{in Question 3, next We train the decision tree based on the
+input dataset we get right
+now}\label{in-question-3-next-we-train-the-decision-tree-based-on-the-input-dataset-we-get-right-now}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}611}]:} \PY{n}{tree} \PY{o}{=} \PY{n}{buildTree}\PY{p}{(}\PY{n}{df}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}614}]:} \PY{n}{err\PYZus{}train}\PY{p}{(}\PY{n}{df}\PY{p}{,}\PY{n}{tree}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.0
+
+    \end{Verbatim}
+
+    \section{\texorpdfstring{In question 3, the ordering of variables in
+decision tree does not make sense, Because, Look at the \(ID3\)
+algorithm, it only select the variable with maximum information gain to
+split the data, so each time to compute \(IG\) our algorithm will
+traverse all
+variables.}{In question 3, the ordering of variables in decision tree does not make sense, Because, Look at the ID3 algorithm, it only select the variable with maximum information gain to split the data, so each time to compute IG our algorithm will traverse all variables.}}\label{in-question-3-the-ordering-of-variables-in-decision-tree-does-not-make-sense-because-look-at-the-id3-algorithm-it-only-select-the-variable-with-maximum-information-gain-to-split-the-data-so-each-time-to-compute-ig-our-algorithm-will-traverse-all-variables.}
+
+    \section{Drawing the decision Tree}\label{drawing-the-decision-tree}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}616}]:} \PY{n}{pprint}\PY{o}{.}\PY{n}{pprint}\PY{p}{(}\PY{n}{tree}\PY{p}{)} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{3: \{0: \{2: \{0: \{0: \{0: \{1: \{0: 1, 1: 0\}\}, 1: \{1: \{0: 0, 1: 1\}\}\}\}, 1: 1\}\},
+     1: \{0: \{0: \{1: \{0: \{2: \{0: 1, 1: 0\}\}, 1: 0\}\}, 1: \{1: \{0: 0, 1: 1\}\}\}\}\}\}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{p}{\PYZob{}}\PY{l+m+mi}{3}\PY{p}{:} \PY{p}{\PYZob{}}\PY{l+m+mi}{0}\PY{p}{:} \PY{p}{\PYZob{}}\PY{l+m+mi}{2}\PY{p}{:} \PY{p}{\PYZob{}}\PY{l+m+mi}{0}\PY{p}{:} \PY{p}{\PYZob{}}\PY{l+m+mi}{0}\PY{p}{:} \PY{p}{\PYZob{}}\PY{l+m+mi}{0}\PY{p}{:} \PY{p}{\PYZob{}}\PY{l+m+mi}{1}\PY{p}{:} \PY{p}{\PYZob{}}\PY{l+m+mi}{0}\PY{p}{:} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{:} \PY{l+m+mi}{0}\PY{p}{\PYZcb{}}\PY{p}{\PYZcb{}}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{:} \PY{p}{\PYZob{}}\PY{l+m+mi}{1}\PY{p}{:} \PY{p}{\PYZob{}}\PY{l+m+mi}{0}\PY{p}{:} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{:} \PY{l+m+mi}{1}\PY{p}{\PYZcb{}}\PY{p}{\PYZcb{}}\PY{p}{\PYZcb{}}\PY{p}{\PYZcb{}}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{:} \PY{l+m+mi}{1}\PY{p}{\PYZcb{}}\PY{p}{\PYZcb{}}\PY{p}{,}
+             \PY{l+m+mi}{1}\PY{p}{:} \PY{p}{\PYZob{}}\PY{l+m+mi}{0}\PY{p}{:} \PY{p}{\PYZob{}}\PY{l+m+mi}{0}\PY{p}{:} \PY{p}{\PYZob{}}\PY{l+m+mi}{1}\PY{p}{:} \PY{p}{\PYZob{}}\PY{l+m+mi}{0}\PY{p}{:} \PY{p}{\PYZob{}}\PY{l+m+mi}{2}\PY{p}{:} \PY{p}{\PYZob{}}\PY{l+m+mi}{0}\PY{p}{:} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{:} \PY{l+m+mi}{0}\PY{p}{\PYZcb{}}\PY{p}{\PYZcb{}}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{:} \PY{l+m+mi}{0}\PY{p}{\PYZcb{}}\PY{p}{\PYZcb{}}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{:} \PY{p}{\PYZob{}}\PY{l+m+mi}{1}\PY{p}{:} \PY{p}{\PYZob{}}\PY{l+m+mi}{0}\PY{p}{:} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{:} \PY{l+m+mi}{1}\PY{p}{\PYZcb{}}\PY{p}{\PYZcb{}}\PY{p}{\PYZcb{}}\PY{p}{\PYZcb{}}\PY{p}{\PYZcb{}}\PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    \section{Below is the result of drawing decision tree based on the tree
+structure printed
+above}\label{below-is-the-result-of-drawing-decision-tree-based-on-the-tree-structure-printed-above}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}618}]:} \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k}{import} \PY{n}{Image}
+          \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{core}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k}{import} \PY{n}{HTML} 
+          \PY{n}{Image}\PY{p}{(}\PY{n}{url}\PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{./decision\PYZus{}tree.png}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}618}]:} <IPython.core.display.Image object>
+\end{Verbatim}
+            
+    \section{Question 4}\label{question-4}
+
+    \section{Bascially, I will first generate a dataset to train the
+decision tree, and generate another dataset to get the training error of
+decision
+tree}\label{bascially-i-will-first-generate-a-dataset-to-train-the-decision-tree-and-generate-another-dataset-to-get-the-training-error-of-decision-tree}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}624}]:} \PY{n}{d} \PY{o}{=} \PY{n}{Dtrees}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{30}\PY{p}{)}                \PY{c+c1}{\PYZsh{}Dtree(4,30) means number of features is 4, and number of data points is 30}
+          \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{d}\PY{o}{.}\PY{n}{arrofarrX}\PY{p}{)}   \PY{c+c1}{\PYZsh{}convert the generated dataset of x to dataframe}
+          \PY{n}{L} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{d}\PY{o}{.}\PY{n}{arrofarrX}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+          \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{d}\PY{o}{.}\PY{n}{arrY} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}625}]:} \PY{n}{tree} \PY{o}{=} \PY{n}{buildTree}\PY{p}{(}\PY{n}{df}\PY{p}{)}
+          \PY{n}{err\PYZus{}train}\PY{p}{(}\PY{n}{df}\PY{p}{,}\PY{n}{tree}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.0
+
+    \end{Verbatim}
+
+    \section{Generate new dataset for testing decision
+tree:}\label{generate-new-dataset-for-testing-decision-tree}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}651}]:} \PY{n}{d} \PY{o}{=} \PY{n}{Dtrees}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{50}\PY{p}{)}              
+          \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{d}\PY{o}{.}\PY{n}{arrofarrX}\PY{p}{)}   \PY{c+c1}{\PYZsh{}convert the generated dataset of x to dataframe}
+          \PY{n}{L} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{d}\PY{o}{.}\PY{n}{arrofarrX}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+          \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{d}\PY{o}{.}\PY{n}{arrY} 
+\end{Verbatim}
+
+
+    \section{The dataset Below will not been peak by Decision tree before
+testing and in the process of testing the training
+error}\label{the-dataset-below-will-not-been-peak-by-decision-tree-before-testing-and-in-the-process-of-testing-the-training-error}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}631}]:} \PY{n}{err\PYZus{}train}\PY{p}{(}\PY{n}{df}\PY{p}{,}\PY{n}{tree}\PY{p}{)}     
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.03156
+
+    \end{Verbatim}
+
+    \section{\texorpdfstring{Based on the result, the average error rate of
+this tree over the newly generated data without any peak from decision
+tree is
+\(0.03156\)}{Based on the result, the average error rate of this tree over the newly generated data without any peak from decision tree is 0.03156}}\label{based-on-the-result-the-average-error-rate-of-this-tree-over-the-newly-generated-data-without-any-peak-from-decision-tree-is-0.03156}
+
+    \section{Question(5)}\label{question5}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}685}]:} \PY{n}{err\PYZus{}history} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{n}{count} \PY{o}{=} \PY{l+m+mi}{0}
+          \PY{n}{x\PYZus{}axis} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{k}{for} \PY{n}{m} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{1000}\PY{p}{)}\PY{p}{:}
+              \PY{n}{d} \PY{o}{=} \PY{n}{Dtrees}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,}\PY{n}{m}\PY{p}{)}              
+              \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{d}\PY{o}{.}\PY{n}{arrofarrX}\PY{p}{)}   \PY{c+c1}{\PYZsh{}convert the generated dataset of x to dataframe}
+              \PY{n}{L} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{d}\PY{o}{.}\PY{n}{arrofarrX}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+              \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{d}\PY{o}{.}\PY{n}{arrY} 
+              \PY{n}{trainset}\PY{p}{,} \PY{n}{predictset} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{p}{[}\PY{n+nb}{int}\PY{p}{(}\PY{o}{.}\PY{l+m+mi}{8}\PY{o}{*}\PY{n+nb}{len}\PY{p}{(}\PY{n}{df}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{p}{)}   \PY{c+c1}{\PYZsh{}80\PYZpc{} training set, 20\PYZpc{} predicting set}
+              \PY{n}{predictset}\PY{o}{.}\PY{n}{index} \PY{o}{=} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{predictset}\PY{o}{.}\PY{n}{index}\PY{p}{)}\PY{p}{)}          \PY{c+c1}{\PYZsh{}reindex the index of predicting set from zero to len\PYZhy{}1}
+              \PY{n}{tree} \PY{o}{=} \PY{n}{buildTree}\PY{p}{(}\PY{n}{trainset}\PY{p}{)}                               \PY{c+c1}{\PYZsh{}build decision tree using training set}
+              \PY{n}{errtrain} \PY{o}{=} \PY{n}{err\PYZus{}train2}\PY{p}{(}\PY{n}{trainset}\PY{p}{,}\PY{n}{tree}\PY{p}{)}
+              \PY{n}{errpred} \PY{o}{=} \PY{n}{err\PYZus{}train2}\PY{p}{(}\PY{n}{predictset}\PY{p}{,}\PY{n}{tree}\PY{p}{)}
+              \PY{n}{err\PYZus{}history}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{math}\PY{o}{.}\PY{n}{fabs}\PY{p}{(}\PY{n}{errtrain}\PY{o}{\PYZhy{}}\PY{n}{errpred}\PY{p}{)}\PY{p}{)}
+              \PY{n}{x\PYZus{}axis}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{count}\PY{p}{)}
+              \PY{n}{count} \PY{o}{=} \PY{n}{count} \PY{o}{+} \PY{l+m+mi}{1}
+\end{Verbatim}
+
+
+    \section{\texorpdfstring{The marginal value in the graph means that in
+many cases, the error of training set = error of predicting set = 0, in
+another word, our decision can predict with 100\% accurcy in the cases
+where \(|err_{train(\hat{f})-err(\hat{f})| = 0\) , also, we could see
+that ,this situation may also result from the small value of k which
+equals
+10}{The marginal value in the graph means that in many cases, the error of training set = error of predicting set = 0, in another word, our decision can predict with 100\% accurcy in the cases where \textbar{}err\_\{train(\textbackslash{}hat\{f\})-err(\textbackslash{}hat\{f\})\textbar{} = 0 , also, we could see that ,this situation may also result from the small value of k which equals 10}}\label{the-marginal-value-in-the-graph-means-that-in-many-cases-the-error-of-training-set-error-of-predicting-set-0-in-another-word-our-decision-can-predict-with-100-accurcy-in-the-cases-where-err_trainhatf-errhatf-0-also-we-could-see-that-this-situation-may-also-result-from-the-small-value-of-k-which-equals-10}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}686}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x\PYZus{}axis}\PY{p}{,} \PY{n}{err\PYZus{}history}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}686}]:} [<matplotlib.lines.Line2D at 0x7f1c3fe58400>]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_53_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
